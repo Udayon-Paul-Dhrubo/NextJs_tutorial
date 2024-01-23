@@ -191,3 +191,16 @@ export default function ReviewNotFound() {
   return <h1>review not found</h1>;
 }
 ```
+
+
+## Private Folder
+it is a folder that is not accessible from the browser. we can use it to store our private data like api keys, database credentials etc.
+
+- create a folder named ```_<folder_name>``` in ```src/app``` folder. ( like ```_private``` )
+file structure
+```
+src
+├── app
+│   ├── _private
+```
+  
