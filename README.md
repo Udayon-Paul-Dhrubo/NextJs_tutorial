@@ -156,3 +156,38 @@ export default function NotFound() {
   );
 }
 ```
+
+### Redirecting to 404 page from a page
+
+```tsx
+import { notFound } from "next/navigation";
+```
+suppose you want to redirect to 404 page if the reviewId is greater than 1000
+```tsx
+if (parseInt(params.reviewId) > 1000) {
+    return notFound();
+  }
+```
+
+- if you want to make another custom 404 page for a specific page, you can do it like this.
+
+> create ```not-found.tsx``` in that page folder. For me I want to create a custom 404 page for ```/products/[productId]/reviews/[reviewId]```
+
+file structure
+
+```
+src
+├── app
+│   ├── products                        <-- this is for /products
+│   │   |── [productId]                 <-- this is for /products/[productId]
+│   │   |    |── reviews                <-- this is for /products/[productId]/reviews
+│   │   |    |    |── [reviewId]        <-- this is for /products/[productId]/reviews/[reviewId]
+│   │   |    |    |    |── page.tsx
+│   │   |    |    |    └── not-found.tsx     <-- this is for /products/[productId]/reviews/not-found.
+
+```
+```tsx
+export default function ReviewNotFound() {
+  return <h1>review not found</h1>;
+}
+```
