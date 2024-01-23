@@ -140,4 +140,19 @@ function Docs( {params} : {params: {slug: string[]}} ) {
 }
 ```
 
-  
+
+### Custom 404 page
+
+- create ```not-found.tsx``` in ```/app``` folder.
+- ```file name have to be named like this``` to make it work.
+
+```tsx
+export default function NotFound() {
+  return (
+    <div>
+      <h1>404 - Page Not Found</h1>
+      <p>could not find your request path</p>
+    </div>
+  );
+}
+```
