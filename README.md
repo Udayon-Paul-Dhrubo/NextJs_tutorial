@@ -193,7 +193,7 @@ export default function ReviewNotFound() {
 ```
 
 
-## Private Folder
+### Private Folder
 it is a folder that is not accessible from the browser. we can use it to store our private data like api keys, database credentials etc.
 
 - create a folder named ```_<folder_name>``` in ```src/app``` folder. ( like ```_private``` )
@@ -203,4 +203,40 @@ src
 ├── app
 │   ├── _private
 ```
-  
+
+
+
+## Route Group
+Allows us to logically group our routes and project files without affecting the url. <br>
+```
+lets implement authentication routes 
+    |── Register
+    |── Login
+    |── Forgot Password
+```
+- what we can simply do is 
+```
+src
+├── app
+│   ├── auth
+│   │   ├── login                       <-- this is for /auth/login
+│   │   │   └── page.tsx
+│   │   ├── register                    <-- this is for /auth/register
+│   │   │   └── page.tsx
+│   │   └── forgot-password             <-- this is for /auth/forgot-password
+│   │       └── page.tsx
+```
+- in some case it is not ideal. yet we can use ```route group``` to solve this problem.
+- to create a route group, we have to simply name the folder like : ```(<group_name>)```
+- ```(auth)``` => means that auth name will be excluded from the url.
+```
+src
+├── app
+│   ├── (auth)
+│   │   ├── login                       <-- this is for /login
+│   │   │   └── page.tsx
+│   │   ├── register                    <-- this is for /register
+│   │   │   └── page.tsx
+│   │   └── forgot-password             <-- this is for /forgot-password
+│   │       └── page.tsx
+```
