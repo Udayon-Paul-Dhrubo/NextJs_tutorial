@@ -107,3 +107,37 @@ function ReviewDetails( {params} : {params: {productId: string, reviewId: string
     )
 }
 ```
+
+### Catch-All Routes ```/pages/[...param]```
+- we can use ```/docs/<any_path>``` to catch all routes that start with ```/docs/``` in a single file. we can use ```[...<any_name>]``` to do that.
+
+file structure
+
+```
+src
+├── app
+│   ├── docs                        <-- this is for /docs
+│   │   |── [...slug]               <-- this is for /docs/<any_request_url>
+│   │   |    └── page.tsx
+|   |   └── page.tsx
+```
+
+- to access the url in ```[...slug]/page.tsx```
+
+```tsx
+function Docs( {params} : {params: {slug: string[]}} ) {
+    if (params.slug.length === 2) {
+        return (
+        <h1>
+            Viewing docs for feature : {params.slug[0]} and concept : {params.slug[1]}            
+        </h1>
+        );
+    } else if (params.slug.length === 1) {
+        return <h1>Viewing docs for feature : {params.slug[0]}</h1>;
+    }
+
+    return <h1>Docs Home Page</h1>;
+}
+```
+
+  
