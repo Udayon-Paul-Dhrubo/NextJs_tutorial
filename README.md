@@ -5,7 +5,7 @@
 Next.js has file-system based routing mechanism.
 
 
-#### Basic Routing ```/pages```
+### Basic Routing ```/pages```
 
 - URL paths that user can access directly in the browser ```are defined by folder in codebase```
 
@@ -27,7 +27,7 @@ src
 ```
 
 
-#### Nested Routing ```/pages/subpages```
+### Nested Routing ```/pages/subpages```
 
 - similar as basic routing
 - let create url ```/blog```, ```/blog/first```, ```/blog/second```
@@ -44,3 +44,37 @@ src
 │   │       └── page.tsx
 │   └── page.tsx                <-- this is for / (home page)
 ```
+
+
+### Dynamic Routing ```/pages/[param]```
+
+- have to create a folder with ```[<param_name>]``` in the name
+- let create url ```/product/1```, ```/product/2```, .... ```/product/n```
+  
+file structure
+
+```
+src
+├── app
+│   ├── product
+│   │   |── [productId]     <-- this is for /product/[productId]
+│   │   |    └── page.tsx
+|   |   └── page.tsx        <-- this is for /product
+│   └── page.tsx            <-- this is for / (home page)
+```           
+
+- to access the param value in ```[productId]/page.tsx```
+```tsx
+
+function ProductDetails( {params} : {params: {productId: string}} ) {
+    return (
+        <div>
+
+            <p>{params.productId}</p>
+        </div>
+    )
+}
+
+```
+
+
