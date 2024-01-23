@@ -56,10 +56,10 @@ file structure
 ```
 src
 ├── app
-│   ├── product
+│   ├── product             <-- this is for /product
 │   │   |── [productId]     <-- this is for /product/[productId]
 │   │   |    └── page.tsx
-|   |   └── page.tsx        <-- this is for /product
+|   |   └── page.tsx        
 │   └── page.tsx            <-- this is for / (home page)
 ```           
 
@@ -77,4 +77,33 @@ function ProductDetails( {params} : {params: {productId: string}} ) {
 
 ```
 
+### Nested Dynamic Routing ```/pages/[param]/subpages```
 
+- let create ```products/[productId]/reviews```, ```products/[productId]/reviews/[reviewId]```
+  
+file structure
+
+```
+src
+├── app
+│   ├── products                        <-- this is for /products
+│   │   |── [productId]                 <-- this is for /products/[productId]
+│   │   |    |── reviews                <-- this is for /products/[productId]/reviews
+│   │   |    |    └── [reviewId]        <-- this is for /products/[productId]/reviews/[reviewId]
+│   │   |    |        └── page.tsx
+|   |   |    └── page.tsx        
+│   │   └── page.tsx            
+```
+
+- to access the param values in ```[reviewId]/page.tsx```
+  
+```tsx
+function ReviewDetails( {params} : {params: {productId: string, reviewId: string}} ) {
+    return (
+        <div>
+            <p>{params.productId}</p>
+            <p>{params.reviewId}</p>
+        </div>
+    )
+}
+```
