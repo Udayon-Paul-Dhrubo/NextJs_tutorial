@@ -47,3 +47,32 @@ export default function OrderProduct() {
   );
 }
 ```
+
+
+## loading.tsx
+ this file allows us to create loading states that are displayed to users while a specific route segment's content is loading. <br>
+ The loading state appears immediately upon navigation.
+
+ - simply need to create a ```loading.tsx``` file in the same directory as the page we want to add a loading state to
+
+let's add a loading state in blog
+```
+src
+├── app
+│   ├── blog
+│   │   ├── loading.tsx
+```
+```tsx
+export default function Loading() {
+  return (
+    <div>
+      <h2>Loading...</h2>
+    </div>
+  );
+}
+```
+
+**benefits of using loading.tsx**
+- display loading state as soon as a user navigates to a new route
+- users can continue interacting with certain parts of the application, such as the navigation menu, even if the main content is still being fetched
+
