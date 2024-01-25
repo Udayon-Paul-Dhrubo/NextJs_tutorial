@@ -48,4 +48,22 @@ export default function ProductDetails({ params }: Props) {
 here ```generateMetadata``` is a function that returns a metadata object. the name of the function is fixed, can't be anything else. <br>
 
 
-  
+
+## More structured page title
+title has 3 properties:
+
+- ```absolute``` : if set, then only this title will be used
+- ```default``` : any child page that doesn't have a title will use this title
+- ```template``` : any child page's title will be appended to this title
+
+for example: in ```src/app/layout.tsx``` we can define
+```tsx
+import { Metadata } from "next";
+
+export const metadata : Metadata = {
+  title: {
+    // absolute: "",        
+    default: "Next.js Tutorial",
+    template: "%s | Next.js Tutorial",        // About | Next.js Tutorial
+  }
+};
