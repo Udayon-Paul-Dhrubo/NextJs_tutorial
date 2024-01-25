@@ -1,69 +1,49 @@
-# Routing Metadata
+# Navigation
+2 types of navigation:
+- **UI navigation**: clicking on a link or button to navigate to a new page
+- **Programmatic navigation**: navaigating to a new page after some event occurs in the app
 
-Ensuring SEO is crucial for increasing visibility and attracting users. <br>
-Next.js introduced the ```Metadata API``` which allows you to define metadata for each page.<br>
-Metadata ensures accurate and relevant information is displayed when your pages are shated or indexed.
+## UI navigation
+- we will use ```Link``` component 
 
-## Configuring Metadata
-1. export a static metadata object
-2. export dynamic metadata object 
-
-
-
-### Static Metadata
-We can define static metadata either 
-- in router group ( in that case in ```layout.tsx``` ) that applies for all the children pages. <br> or
-- in each page ( in that case in ```page.tsx```) individually.
-
-declaring static metadata is simple. 
+suppose in our home page
 ```tsx
-export const metadata = {    <---- here "metadata" name is fixed, can't be anything else
-  title: "Authentication",
-};
-```
-applicable in both ```layout.tsx``` and ```page.tsx```
+import Link from "next/link";
 
-
-### Dynamic Metadata
-let's build dynamic metadata for ```/products/[productId]``` page. in the folder's ```page.tsx``` 
-```tsx
-import { Metadata } from "next";
-
-type Props = {
-  params: {
-    productId: string;
-  };
-};
-
-export const generateMetadata = ({ params }: Props): Metadata => { 
-  return {
-    title: `Product ${params.productId}`,
-  };
-};
-
-export default function ProductDetails({ params }: Props) {
-  .....
+export default function Home() {
+  return (
+    <>
+      <h1> Hello World!! Welcome to Home </h1>
+      <Link href="/about">About</Link>
+      <br />
+      <Link href="/products">Product</Link>
+      <br />
+      <Link href="/blog">Blog</Link>
+    </>
+  );
 }
 ```
-here ```generateMetadata``` is a function that returns a metadata object. the name of the function is fixed, can't be anything else. <br>
 
-
-
-## More structured page title
-title has 3 properties:
-
-- ```absolute``` : if set, then only this title will be used
-- ```default``` : any child page that doesn't have a title will use this title
-- ```template``` : any child page's title will be appended to this title
-
-for example: in ```src/app/layout.tsx``` we can define
+## Programmatic navigation
+![return to home after placing order](programmatic_navigation.png) <br>
+in ```src/app/order_product/page.tsx```
 ```tsx
-import { Metadata } from "next";
+"use client";
+import { useRouter } from "next/navigation";
 
-export const metadata : Metadata = {
-  title: {
-    // absolute: "",        
-    default: "Next.js Tutorial",
-    template: "%s | Next.js Tutorial",        // About | Next.js Tutorial
-  }
-};
+export default function OrderProduct() {
+  const router = useRouter();
+
+  const handleClick = () => {
+    console.log("Placing order...");
+    router.push("/");
+  };
+
+  return (
+    <>
+      <h1>Order Product</h1>
+      <button onClick={handleClick}>Place Order</button>
+    </>
+  );
+}
+```
