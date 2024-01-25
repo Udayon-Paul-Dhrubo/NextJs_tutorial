@@ -1,99 +1,51 @@
-# NextJs_tutorial
+# Routing Metadata
 
-## Concept
-- a ```page``` is UI that is unique to a route
-- a ```layout``` is UI that is shared across multiple pages in the app.
-```
-        Header          <--- Layout
-        /    \
-    Page1    Page2      <--- Pages / content
-        \    /
-        Footer          <--- Layout
-```
+Ensuring SEO is crucial for increasing visibility and attracting users. <br>
+Next.js introduced the ```Metadata API``` which allows you to define metadata for each page.<br>
+Metadata ensures accurate and relevant information is displayed when your pages are shated or indexed.
 
-## Creating Layout
-- fix naming convention: ```layout.tsx```
-- it takes a ```children``` prop which is a special prop automatically passed by Next.js. It represents the content we put inside the layout component.
+## Configuring Metadata
+1. export a static metadata object
+2. export dynamic metadata object 
 
-for simple example
+
+
+### Static Metadata
+We can define static metadata either 
+- in router group ( in that case in ```layout.tsx``` ) that applies for all the children pages. <br> or
+- in each page ( in that case in ```page.tsx```) individually.
+
+declaring static metadata is simple. 
 ```tsx
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body>
-        {/* head section */}
-        <header
-          style={{
-            backgroundColor: "lightblue",
-            padding: "1rem",
-          }}
-        >
-          <p>Header</p>
-        </header>
+export const metadata = {    <---- here "metadata" name is fixed, can't be anything else
+  title: "Authentication",
+};
+```
+applicable in both ```layout.tsx``` and ```page.tsx```
 
-        {/* content section */}
 
-        {children}
+### Dynamic Metadata
+let's build dynamic metadata for ```/products/[productId]``` page. in the folder's ```page.tsx``` 
+```tsx
+import { Metadata } from "next";
 
-        {/* footer section */}
-        <footer
-          style={{
-            backgroundColor: "lightgreen",
-            padding: "1rem",
-          }}
-        >
-          <p>Footer</p>
-        </footer>
-      </body>
-    </html>
-  );
+type Props = {
+  params: {
+    productId: string;
+  };
+};
+
+export const generateMetadata = ({ params }: Props): Metadata => { 
+  return {
+    title: `Product ${params.productId}`,
+  };
+};
+
+export default function ProductDetails({ params }: Props) {
+  .....
 }
 ```
-
-## Nested Layout
-
-- ```we can also create custom layout for specific page``` 
-```
-src
-├── app
-│   ├── about
-|   |   ├── page.tsx
-│   │   └── layout.tsx
-```
-
-here is the example
-```tsx
-export default function ProductDetailsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <>
-      {children}
-      <h2>hiii</h2>
-    </>
-  );
-}
-```
-
-in this case, first it will render ```children``` and then ```<h2>hiii</h2>``` and then root layout
-
-![nested layout example](image.png)
+here ```generateMetadata``` is a function that returns a metadata object. the name of the function is fixed, can't be anything else. <br>
 
 
-## Route Group Layout
-- we can also customize layout for specific route group. for that we need to create ```layout.tsx``` in route group folder
-```
-src
-├── app
-│   ├── (auth)
-|   |   ├── login
-|   |   ├── register
-|   |   ├── forgot-password
-|   |   └── layout.tsx
-```
+  

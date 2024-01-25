@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Authentication",
+};
+
 export default function AuthLayout({
   children,
 }: {
