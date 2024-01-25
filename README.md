@@ -84,3 +84,16 @@ export default function ProductDetailsLayout({
 in this case, first it will render ```children``` and then ```<h2>hiii</h2>``` and then root layout
 
 ![nested layout example](image.png)
+
+
+## Route Group Layout
+- we can also customize layout for specific route group. for that we need to create ```layout.tsx``` in route group folder
+```
+src
+├── app
+│   ├── (auth)
+|   |   ├── login
+|   |   ├── register
+|   |   ├── forgot-password
+|   |   └── layout.tsx
+```
