@@ -54,6 +54,8 @@ export default function RootLayout({
 }
 ```
 
+## Nested Layout
+
 - ```we can also create custom layout for specific page``` 
 ```
 src
@@ -63,3 +65,22 @@ src
 │   │   └── layout.tsx
 ```
 
+here is the example
+```tsx
+export default function ProductDetailsLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      {children}
+      <h2>hiii</h2>
+    </>
+  );
+}
+```
+
+in this case, first it will render ```children``` and then ```<h2>hiii</h2>``` and then root layout
+
+![nested layout example](image.png)
