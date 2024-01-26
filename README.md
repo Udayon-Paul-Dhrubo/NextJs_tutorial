@@ -391,5 +391,58 @@ the content of ```default.tsx``` file may be mirror of ```page.tsx``` file or cu
 
 
 
+## Conditional Routing
+suppose for who is logged in, we want to show ```/complex_dashboard``` page and for who is not logged in, we want to show ```/login``` page. <br>
+
+for this we can add extra ```Slot```
+```
+src
+├── app
+│   ├── complex_dashboard
+│   │   ├── @login
+│   │   │   └── page.tsx
+│   │   ├── @notifications
+│   │   ├── @revenue
+│   │   ├── @users
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+```
+in ```layout.tsx``` file
+```tsx
+export default function DashboardLayout({
+  children,
+  users,
+  revenue,
+  notifications,
+  login,
+}: {
+  children: React.ReactNode;
+  users: React.ReactNode;
+  revenue: React.ReactNode;
+  notifications: React.ReactNode;
+  login: React.ReactNode;                           <---------------
+}) {
+  const isLoggedIn = false;                         <---------------
+
+  return isLoggedIn ? (
+    <>
+      <div>
+        <h1>{children}</h1>
+        <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div>{users}</div>
+            <div>{revenue}</div>
+          </div>
+          <div style={{ display: "flex", flex: 1 }}>{notifications}</div>
+        </div>
+      </div>
+    </>
+  ) : (
+    <>
+      <div>{login}</div>                            <---------------
+    </>
+  );
+}
+```
 
 
