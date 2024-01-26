@@ -76,3 +76,64 @@ export default function Loading() {
 - display loading state as soon as a user navigates to a new route
 - users can continue interacting with certain parts of the application, such as the navigation menu, even if the main content is still being fetched
 
+
+## error handling
+
+suppose we have unhandeled error in ```/products/[productId]/reviews/[reviewId]/page.tsx```
+```tsx
+function getRandomInt(count: number) {
+  return Math.floor(Math.random() * count);
+}
+
+export default function ReviewDetails({
+  params,
+}: {
+  params: { productId: string; reviewId: string };
+}) {
+  const random = getRandomInt(2);
+  if (random === 1) {
+    throw new Error("Error Loading Review");
+  }
+    ......
+}
+```
+
+to handle this error we need to create ```error.tsx``` in the same directory.
+```tsx
+"use client";
+
+export default function ErrorBoundary() {
+  return <h1>Error in Review</h1>;
+}
+```
+to show what the error is we can use ```error.message```
+```tsx
+export default function ErrorBoundary({ error }: { error: Error }) {
+  return <h1>Error in Review : {error.message} </h1>;
+}
+```
+
+- sometimes to recover from an minor error we have to just ```try again```.
+```tsx
+"use client";
+
+export default function ErrorBoundary({
+  error,
+  reset,
+}: {
+  error: Error;
+  reset: () => void;
+}) {
+  return (
+    <div>
+      <h2>Error</h2>
+      <p>{error.message}</p>
+      <button onClick={reset}>Try Again</button>
+    </div>
+  );
+}
+```
+
+to make it work we need to include ```"use client";``` in page.tsx
+
+
