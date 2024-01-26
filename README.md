@@ -362,3 +362,34 @@ export default function ArchivedNotifications() {
 }
 ```
 
+**but the problem arose when we are at ```/complex_dashboard/archived``` and we refresh the page. it will show 404 page.** <br>
+Because it is navigated within the UI. and Next.js retains previous active state of other slots regardless of changes in the URL. <br>
+But when page refreshes, Next.js can't retrieve other slot's active state from the current URL.
+because ```/complex_dashboard/archived``` is not an ```unmatched route(routing within the UI)``` <br>
+
+- that's why we need ```default.tsx``` file
+  
+```default.tsx``` file serves as a ```fallback``` to render content when the framework ```can't retrieve a slot's active state``` from the current URL <br>
+
+so to work
+```
+src
+├── app
+│   ├── complex_dashboard
+│   │   ├── @notifications
+│   │   ├── @revenue
+│   │   |   ├── default.tsx         <--
+│   │   │   └── page.tsx
+│   │   ├── @users
+│   │   |   ├── default.tsx         <--
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── default.tsx             <--
+│   │   └── page.tsx
+```
+the content of ```default.tsx``` file may be mirror of ```page.tsx``` file or custom content.
+
+
+
+
+
