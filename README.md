@@ -323,5 +323,42 @@ export default function DashboardLayout({
 **Benefits of using Parallel Routes -> ```Independent Route Handling```**
 <img src="independent_route_handling.png" alt="independent_route_handling" style="width:700px">
 
+**Benefits of using Parallel Routes -> ```Sub-navigation in routes```** <br>
+- each ```Slot``` functions as a mini-application with its own navigation and state management.
 
+<img src="sub_navigation.png" alt="sub_navigation" style="width:700px">
+
+```tsx
+export default function Notifications() {
+  return (
+    <Card>
+      <div>Notifications</div>
+      <Link href="/complex_dashboard/archived"> Archived </Link>
+    </Card>
+  );
+}
+```
+for this to implement
+```
+src
+├── app
+│   ├── complex_dashboard
+│   │   ├── @notifications
+│   │   │   |── archived
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+```
+```tsx
+import Card from "@/components/card";
+import Link from "next/link";
+
+export default function ArchivedNotifications() {
+  return (
+    <Card>
+      <div>Archived Notifications</div>
+      <Link href="/complex_dashboard"> Archived </Link>
+    </Card>
+  );
+}
+```
 
