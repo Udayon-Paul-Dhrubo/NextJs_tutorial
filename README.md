@@ -137,3 +137,14 @@ export default function ErrorBoundary({
 to make it work we need to include ```"use client";``` in page.tsx
 
 
+## Handling errors in Nested Routes
+errors bubble up to the closest parent error boundary. <br>
+an ```error.tsx``` file will cater ```for all its nested child segments``` <br>
+by positioning error.tsx files at different leveles in the nested folders of a route, you can achieve a more granular level of error handling.
+
+
+## Handling errors in Layouts
+page/content error can be catched by error.tsx file. <br>
+but layout belongs above the page/content. So, error.tsx file can't catch error in layout. <br>
+
+- can be solved by ```placing error.tsx file in the parent directory``` of the layout file.

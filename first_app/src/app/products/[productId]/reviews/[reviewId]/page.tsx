@@ -11,10 +11,10 @@ export default function ReviewDetails({
 }: {
   params: { productId: string; reviewId: string };
 }) {
-  const random = getRandomInt(2);
-  if (random === 1) {
-    throw new Error("Error Loading Review");
-  }
+  // const random = getRandomInt(2);
+  // if (random === 1) {
+  //   throw new Error("Error Loading Review");
+  // }
   if (parseInt(params.reviewId) > 1000) {
     return notFound();
   }
