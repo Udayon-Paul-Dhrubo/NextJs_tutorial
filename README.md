@@ -240,3 +240,88 @@ src
 │   │   └── forgot-password             <-- this is for /forgot-password
 │   │       └── page.tsx
 ```
+
+
+
+## Parallel Routes
+```Parallel Routes``` are advanced routing mechanism  that allows for the simultaneous rendering of multiple within the same layout.<br>
+
+
+>suppose we want to create a complex dashboard that includes multiple sections. Like this
+<img src="complex dashboard.png" alt="Complex Dashboard" style="width:450px">
+
+
+
+- In a traditional way it is done like this.
+```tsx
+import UserAnalytics from "@/users/UserAnalytics";
+import RevenewMetrics from "@/components/RevenewMetrics";
+import Notifications from "@/components/Notifications";
+
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      <div>children</div>
+      <UserAnalytics />
+      <RevenewMetrics />
+      <Notifications />
+    </>
+  );
+}
+```
+but this doesn't renders the components at once. it renders one by one. so it is not ideal for complex dashboard. for this we need to use ```Parallel Routes```
+
+- Parallel routes are defined using a feature known as ```slots``` 
+- ```Slots``` help structure our content in a modular fashion 
+- to define a ```Slot```, we use the ```@<folder_name>``` naming convention 
+- each ```Slot``` is then passed as a prop to its corresponding ```layout.tsx``` file
+
+file structure
+```src
+├── app
+│   ├── complex_dashboard
+│   │   ├── @notifications
+│   │   │   └── page.tsx
+│   │   ├── @revenue
+│   │   │   └── page.tsx
+│   │   ├── @users
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+```
+then we can use them as 
+```tsx
+export default function DashboardLayout({
+  children,
+  users,
+  revenue,
+  notifications,
+}: {
+  children: React.ReactNode;
+  users: React.ReactNode;
+  revenue: React.ReactNode;
+  notifications: React.ReactNode;
+}) {
+  return (
+    <>
+      <div>{children}</div>
+      <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div>{users}</div>
+          <div>{revenue}</div>
+        </div>
+        <div style={{ display: "flex", flex: 1 }}>{notifications}</div>
+      </div>
+    </>
+  );
+}
+```
+**Benefits of using Parallel Routes -> ```Independent Route Handling```**
+<img src="independent_route_handling.png" alt="independent_route_handling" style="width:700px">
+
+
+
