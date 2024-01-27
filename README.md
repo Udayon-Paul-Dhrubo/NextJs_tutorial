@@ -521,3 +521,16 @@ src
 ```
 
 
+## Practical Example of intercepting routes
+<img src="intercepting_routes_2.png" alt="intercepting_routes_1" style="width:600px">
+<br>
+
+- i created a route ```/photo_feed``` for this
+check the corresponding files 
+```
+src
+├── app
+│   └── photo_feed     <---- this the route
+└── components
+    └── modal.tsx        
+```
