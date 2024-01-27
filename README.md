@@ -243,7 +243,7 @@ src
 
 
 
-## Parallel Routes
+# Parallel Routes(Advanced Routing)
 ```Parallel Routes``` are advanced routing mechanism  that allows for the simultaneous rendering of multiple within the same layout.<br>
 
 
@@ -443,6 +443,81 @@ export default function DashboardLayout({
     </>
   );
 }
+```
+
+
+# Intercepting Routes (Advanced Routing)
+
+let's look at the examples <br>
+<img src="intercepting_routes_1.png" alt="intercepting_routes_1" style="width:600px"> <br>
+similarly<br>
+<img src="intercepting_routes_2.png" alt="intercepting_routes_1" style="width:600px">
+
+- ```intercepting routes``` allow you to intercept or stop the default routing behaviour to ```present an alternate view or component``` when navigating throgh the ```UI``` while preserving the intended route for scenarios like ```page refresh```
+  
+- **useful if you want to show a route while keeping the context of the current page**
+
+### convention
+name the intended intercepting route folder as : 
+- ```(.)<route/folder_name>``` to match segements on the ```same level```
+- ```(..)<route/folder_name>``` to match segements on ```one level above```
+- ```(..)(..)<route/folder_name>``` to match segements on ```two level above``` **but there is an issue on this, which is not solved yet**
+- ```(...)<route/folder_name>``` to match segements on ```root level```
+
+
+for example: <br>
+we have routes like this
+```
+src
+├── app
+│   ├── f1
+│   │   ├── page.tsx          <--- contains link to /f1/f2
+│   │   ├── f2
+│   │   │   └── page.tsx
+│   │   ├── f3
+│   │   │   └── page.tsx      <--- contains link to /about
+│   │   ├── f4
+│   │   │   └── page.tsx      <--- contains link to /f1/f3
+```
+
+- ```f1```'s ```page.tsx``` and ```f2 route``` are on the same level.
+so,
+```
+src
+├── app
+│   ├── f1
+│   │   ├── page.tsx          <--- contains link to /f1/f2
+|   |   ├── (.)f2             <--- intercepting route
+│   │   │   └── page.tsx
+│   │   ├── f2                <--- real route
+│   │   │   └── page.tsx
+```
+
+- but ```f4```'s ```page.tsx``` and ```f3 route``` are not on the same level. f3 route is one level above.
+so,
+```
+src
+├── app
+│   ├── f1
+│   │   ├── page.tsx       
+│   │   ├── f3                      <--- real route
+│   │   ├── f4
+│   │   │   ├── page.tsx            <--- contains link to /f1/f3
+|   |   │   └── (..)f3              <--- intercepting route
+│   │   │        └──  page.tsx           
+```
+
+- ```f3```'s ```page.tsx``` contains link to ```/about``` route. ```about``` route is on the root level.
+so,
+```
+src
+├── app
+│   ├── about                       <--- real route
+│   ├── f1
+|   |   ├── f3
+|   |   |   ├── page.tsx            <--- contains link to /about
+|   |   |   └── (..)about           <--- intercepting route
+│   │   │        └──  page.tsx           
 ```
 
 
