@@ -450,8 +450,7 @@ export default function DashboardLayout({
 
 let's look at the examples <br>
 <img src="intercepting_routes_1.png" alt="intercepting_routes_1" style="width:600px"> <br>
-similarly<br>
-<img src="intercepting_routes_2.png" alt="intercepting_routes_1" style="width:600px">
+
 
 - ```intercepting routes``` allow you to intercept or stop the default routing behaviour to ```present an alternate view or component``` when navigating throgh the ```UI``` while preserving the intended route for scenarios like ```page refresh```
   
